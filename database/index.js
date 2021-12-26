@@ -4,19 +4,17 @@ mongoose.connect('mongodb://localhost/sdc', { useNewUrlParser: true, useUnifiedT
 
 const productsSchema = new mongoose.Schema({
     _id: Number,
-    campus: String,
+    id: Number,
     name: String,
     slogan: String,
     description: String,
     category: String,
     default_price: String,
-    created_at: Date,
-    updated_at: Date,
     features: [{
       feature: String,
       value: String
     }],
-    results: [{
+    styles: [{
       style_id: Number,
       name: String,
       original_price: String,
@@ -31,8 +29,20 @@ const productsSchema = new mongoose.Schema({
           quantity: Number,
           size: String
       }
-    }],
-    related: [Number]
+    }]
 });
 
-let Repo = mongoose.model('SDC', productsSchema);
+// 'Product' -> will display as products in mongoDB
+// also products is the collection within the
+// sdc database inside MongoDB
+let Product = mongoose.model('Product', productsSchema);
+
+let testFunc = async() => {
+  const findAllProducts = await Product.find();
+
+  return findAllProducts;
+};
+
+module.exports = {
+  testFunc: testFunc
+}
