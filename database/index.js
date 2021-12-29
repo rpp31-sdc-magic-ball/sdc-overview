@@ -10,26 +10,25 @@ const productsSchema = new mongoose.Schema({
     description: String,
     category: String,
     default_price: String,
-    features: [{
+    features: {
       feature: String,
       value: String
-    }],
-    styles: [{
-      style_id: Number,
+    },
+    styles: {
       name: String,
       original_price: String,
       sale_price: String,
-      default: Boolean,
-      photos: [{
-        thumbnail_url: String,
-        url: String
-      }],
-      skus: {
-          sku_id: Number,
-          quantity: Number,
-          size: String
-      }
-    }]
+      default_style: Boolean
+    },
+    style_id: Number,
+    skus: {
+      size: String,
+      quantity: Number
+    },
+    photos: {
+      url: String,
+      thumbnail_url: String
+    }
 });
 
 // 'Product' -> will display as products in mongoDB
@@ -37,12 +36,29 @@ const productsSchema = new mongoose.Schema({
 // sdc database inside MongoDB
 let Product = mongoose.model('Product', productsSchema);
 
-let testFunc = async() => {
-  const findAllProducts = await Product.find();
+const getDate = () => {
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
 
-  return findAllProducts;
+  return today.toISOString();
+}
+
+let getProduct = async() => {
+
+  // lean() returns a plain JS object so we can manipulate it
+  let topProducts = await Product.find({id: { $lt: 6}}).lean();
+
+  topProducts.forEach(element => {
+    delete element._id;
+    element.campus = 'hr-rpp';
+    element.default_price = `${element.default_price}.00`;
+    element.created_at = getDate();
+    element.updated_at = getDate();
+  });
+
+  return topProducts;
 };
 
 module.exports = {
-  testFunc: testFunc
+  getProduct: getProduct
 }

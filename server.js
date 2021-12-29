@@ -3,6 +3,8 @@ const app = express();
 const port = 3000;
 const query = require('./database/index')
 
+// app.use(express.urlencoded({extended:true}));
+
 app.get('/', (req, res) => {
   res.send('SDC');
 });
@@ -12,13 +14,13 @@ app.listen(port, () => {
 });
 
 app.get('/products', (req, res) => {
-  query.testFunc()
+  query.getProduct()
     .then(result => res.send(result).status(200))
     .catch(err => res.sendStatus(500))
 });
 
 app.get('/products/:product_id', (req, res) => {
-  console.log(req.params.product_id)
+  // console.log(req.params.product_id)
   res.send('ok').status(200)
 });
 
