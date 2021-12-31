@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const query = require('./database/index')
-
-// app.use(express.urlencoded({extended:true}));
+const products = require('./database/products');
+const product = require('./database/product');
 
 app.get('/', (req, res) => {
   res.send('SDC');
@@ -14,14 +13,18 @@ app.listen(port, () => {
 });
 
 app.get('/products', (req, res) => {
-  query.getProduct()
+  products.getProduct()
     .then(result => res.send(result).status(200))
     .catch(err => res.sendStatus(500))
 });
 
 app.get('/products/:product_id', (req, res) => {
-  // console.log(req.params.product_id)
-  res.send('ok').status(200)
+  product.getOneProduct(req.params.product_id)
+    .then(result => res.send(result).status(200))
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
 });
 
 app.get('/products/:product_id/styles', (req, res) => {

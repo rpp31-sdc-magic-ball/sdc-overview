@@ -4,31 +4,19 @@ mongoose.connect('mongodb://localhost/sdc', { useNewUrlParser: true, useUnifiedT
 
 const productsSchema = new mongoose.Schema({
     _id: Number,
-    id: Number,
-    name: String,
-    slogan: String,
-    description: String,
-    category: String,
-    default_price: String,
-    features: {
-      feature: String,
-      value: String
-    },
-    styles: {
-      name: String,
-      original_price: String,
-      sale_price: String,
-      default_style: Boolean
-    },
-    style_id: Number,
-    skus: {
-      size: String,
-      quantity: Number
-    },
-    photos: {
-      url: String,
-      thumbnail_url: String
-    }
+    id: {type: Number, index: true},
+    campus: {type: String, index: true},
+    name: {type: String, index: true},
+    slogan: {type: String, index: true},
+    description: {type: String, index: true},
+    category: {type: String, index: true},
+    default_price: {type: String, index: true},
+    created_at: {type: String, index: true},
+    updated_at: {type: String, index: true},
+    features: [{
+      feature: {type: String, index: true},
+      value: {type: String, index: true}
+    }]
 });
 
 // 'Product' -> will display as products in mongoDB
@@ -43,10 +31,10 @@ const getDate = () => {
   return today.toISOString();
 }
 
-let getProduct = async() => {
+const getProduct = async() => {
 
   // lean() returns a plain JS object so we can manipulate it
-  let topProducts = await Product.find({id: { $lt: 6}}).lean();
+  let topProducts = await Product.find({id: { $lt: 6}}).sort({ id: 1 }).lean();
 
   topProducts.forEach(element => {
     delete element._id;
@@ -60,5 +48,7 @@ let getProduct = async() => {
 };
 
 module.exports = {
-  getProduct: getProduct
+  getProduct: getProduct,
+  Product: Product,
+  getDate: getDate
 }
