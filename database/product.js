@@ -24,20 +24,20 @@ const getOneProduct = async(prodID) => {
     }
   ]);
 
-  result.forEach(element => {
-    element.created_at = getDate();
-    element.updated_at = getDate();
-    element.campus = 'hr-rpp';
-    element.default_price = `${element.default_price}.00`;
+  let myProduct = result.pop();
 
-    element.features.forEach(val => {
-      delete val._id;
-      delete val.id;
-      delete val.product_id;
-    });
+  myProduct.created_at = getDate();
+  myProduct.updated_at = getDate();
+  myProduct.campus = 'hr-rpp';
+  myProduct.default_price = `${myProduct.default_price}.00`;
+
+  myProduct.features.forEach(val => {
+    delete val._id;
+    delete val.id;
+    delete val.product_id;
   });
 
-  return result.pop();
+  return myProduct;
 }
 
 module.exports = {
