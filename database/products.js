@@ -5,18 +5,14 @@ mongoose.connect('mongodb://localhost/sdc', { useNewUrlParser: true, useUnifiedT
 const productsSchema = new mongoose.Schema({
     _id: Number,
     id: {type: Number, index: true},
-    campus: {type: String, index: true},
-    name: {type: String, index: true},
-    slogan: {type: String, index: true},
-    description: {type: String, index: true},
-    category: {type: String, index: true},
-    default_price: {type: String, index: true},
-    created_at: {type: String, index: true},
-    updated_at: {type: String, index: true},
-    features: [{
-      feature: {type: String, index: true},
-      value: {type: String, index: true}
-    }]
+    campus: String,
+    name: String,
+    slogan: String,
+    description: String,
+    category: String,
+    default_price: String,
+    created_at: String,
+    updated_at: String
 });
 
 // 'Product' -> will display as products in mongoDB

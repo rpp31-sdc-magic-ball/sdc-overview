@@ -15,7 +15,10 @@ app.listen(port, () => {
 app.get('/products', (req, res) => {
   products.getProduct()
     .then(result => res.send(result).status(200))
-    .catch(err => res.sendStatus(500))
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
 });
 
 app.get('/products/:product_id', (req, res) => {
