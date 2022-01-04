@@ -1,4 +1,4 @@
-const transformPhotosOnly = (clone) => {
+const fullProduct = (clone) => {
   clone.sort((a, b) => a.id - b.id);
 
   clone.forEach(element => {
@@ -32,15 +32,23 @@ const transformPhotosOnly = (clone) => {
       delete photo.styleId;
     });
 
-    element.skus = {
-      'null': {
-          'quantity': null,
-          'size': null
+    element.skus.sort((a, b) => a.id - b.id);
+
+    let skusObj = {};
+
+    element.skus.forEach(sku => {
+      skusObj[JSON.stringify(sku.id)] = {
+          quantity: sku.quantity,
+          size: sku.size
       }
-    }
+    });
+
+    element.skus = skusObj;
+
   });
+
 
   return clone;
 };
 
-module.exports = transformPhotosOnly;
+module.exports = fullProduct;

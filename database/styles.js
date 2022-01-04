@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const transformNone = require('../helpers/noPhotoSku');
+const transformPhotosOnly = require('../helpers/noSku');
+const fullProduct = require('../helpers/fullProduct');
 
 mongoose.connect('mongodb://localhost/sdc', { useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -56,41 +58,14 @@ const getStyles = async(prodID) => {
   }
 
   if (clone[0].skus.length === 0) {
+    finalObj.results = transformPhotosOnly(clone);
 
+    return finalObj;
   }
 
-  // clone.forEach(element => {
-  //   delete element.productId;
-  //   delete element._id;
-  //   element.style_id = element.id;
-  //   delete element.id;
+  finalObj.results = fullProduct(clone);
 
-  //   if (element.default_style === 1) {
-  //     element['default?'] = true;
-  //   } else {
-  //     element['default?'] = false;
-  //   }
-
-  //   delete element.default_style;
-
-  //   element.original_price = `${element.original_price}.00`;
-
-  //   if (element.sale_price !== 'null') {
-  //     element.sale_price = `${element.sale_price}.00`;
-  //   } else {
-  //     element.sale_price = null;
-  //   }
-
-  //   element.photos.sort((a, b) => a.id - b.id);
-
-  //   element.photos.forEach(photo => {
-  //     delete photo._id;
-  //     delete photo.id;
-  //     delete photo.styleId;
-  //   });
-  // });
-
-  return 'one';
+  return finalObj;
 };
 
 module.exports = {
