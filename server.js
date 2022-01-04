@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const products = require('./database/products');
 const product = require('./database/product');
+const styles = require('./database/styles');
 
 app.get('/', (req, res) => {
   res.send('SDC');
@@ -31,5 +32,10 @@ app.get('/products/:product_id', (req, res) => {
 });
 
 app.get('/products/:product_id/styles', (req, res) => {
-  res.send('styles').status(200);
+  styles.getStyles(req.params.product_id)
+    .then(result => res.send(result).status(200))
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(500)
+    })
 });
