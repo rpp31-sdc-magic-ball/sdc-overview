@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://poyraz:poyraz@54.183.156.254:27017/sdc', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://poyraz:poyraz@54.215.251.35:27017/sdc', { useNewUrlParser: true, useUnifiedTopology: true});
 
 const productsSchema = new mongoose.Schema({
     _id: Number,

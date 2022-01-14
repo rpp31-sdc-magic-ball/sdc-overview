@@ -3,7 +3,7 @@ const transformNone = require('../helpers/noPhotoSku');
 const transformPhotosOnly = require('../helpers/noSku');
 const fullProduct = require('../helpers/fullProduct');
 
-mongoose.connect('mongodb://poyraz:poyraz@54.183.156.254:27017/sdc', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://poyraz:poyraz@54.215.251.35:27017/sdc', { useNewUrlParser: true, useUnifiedTopology: true});
 
 const stylesSchema = new mongoose.Schema({
   _id: Number,
