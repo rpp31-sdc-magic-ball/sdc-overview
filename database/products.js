@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb://poyraz:poyraz@54.215.251.35:27017/sdc', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb://${process.env.auth}@54.215.251.35:27017/sdc`, { useNewUrlParser: true, useUnifiedTopology: true});
 
 const productsSchema = new mongoose.Schema({
     _id: Number,

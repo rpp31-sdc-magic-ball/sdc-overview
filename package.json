@@ -21,6 +21,7 @@
   "homepage": "https://github.com/rpp31-sdc-magic-ball/sdc-overview#readme",
   "dependencies": {
     "axios": "^0.24.0",
+    "dotenv": "^12.0.3",
     "express": "^4.17.2"
   },
   "devDependencies": {

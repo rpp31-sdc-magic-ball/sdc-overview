@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const transformNone = require('../helpers/noPhotoSku');
 const transformPhotosOnly = require('../helpers/noSku');
 const fullProduct = require('../helpers/fullProduct');
+require('dotenv').config();
 
-mongoose.connect('mongodb://poyraz:poyraz@54.215.251.35:27017/sdc', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb://${process.env.auth}@54.215.251.35:27017/sdc`, { useNewUrlParser: true, useUnifiedTopology: true});
 
 const stylesSchema = new mongoose.Schema({
   _id: Number,
