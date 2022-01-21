@@ -50,6 +50,10 @@ const getStyles = async(prodID) => {
 
   let clone = styleAgg.slice();
 
+  if (clone.length === 0) {
+    return finalObj;
+  }
+
   if (clone[0].photos.length === 0 && clone[0].skus.length === 0) {
     finalObj.results = transformNone(clone);
 
